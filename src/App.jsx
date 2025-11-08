@@ -5,7 +5,7 @@ import initialBlogPosts from './assets/listOfPost'
 function App() {
   const [blogPosts, setBlogPosts] = useState(initialBlogPosts);
 
-  const [newPost, setnewPost] = useState("");
+  const [newPost, setNewPost] = useState("");
 
   function addNewPost(event) {
     event.preventDefault();
@@ -17,10 +17,14 @@ function App() {
       contenuto: "Nuova aggiunta, da completare"
     }
     setBlogPosts((prev) => [...prev, newPostToAdd]);
+    setNewPost("");
   }
 
   function deletePost(idToDelete) {
     console.log("Cancella: ", idToDelete);
+    setBlogPosts((prev) => (
+      prev.filter((curPost) => (curPost.id !== idToDelete))
+    ))
   }
 
   return (
@@ -32,7 +36,7 @@ function App() {
         <div className='mt-5'>
           <h2>Inserisci un nuovo articolo</h2>
           <form className="d-flex align-items-center gap-2" onSubmit={addNewPost}>
-            <input type="text" className='form-control' id="inputNewPost" value={newPost} onChange={(event) => setnewPost(event.target.value)} />
+            <input type="text" className='form-control' id="inputNewPost" value={newPost} onChange={(event) => setNewPost(event.target.value)} />
             <div id="inputNewPost" className="form-text">titolo da aggiungere alla lista</div>
             <button type='submit' className='btn btn-primary'>Aggiungi</button>
           </form>
