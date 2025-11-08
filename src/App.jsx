@@ -5,7 +5,19 @@ import initialBlogPosts from './assets/listOfPost'
 function App() {
   const [blogPosts, setBlogPosts] = useState(initialBlogPosts);
 
-  const [newArticle, setNewArticle] = useState("");
+  const [newPost, setnewPost] = useState("");
+
+  function addNewPost(event) {
+    event.preventDefault();
+    console.log("AGGIUNGI");
+    const lastPostId = blogPosts[blogPosts.length - 1].id;
+    const newPostToAdd = {
+      id: lastPostId + 1,
+      titolo: newPost,
+      contenuto: "Nuova aggiunta, da completare"
+    }
+    setBlogPosts((prev) => [...prev, newPostToAdd]);
+  }
 
   return (
     <>
@@ -13,9 +25,10 @@ function App() {
       <div className="container">
         <div className='mt-5'>
           <h2>Inserisci un nuovo articolo</h2>
-          <form className="d-flex align-items-center gap-2">
-            <input type="text" value={newArticle} onChange={(event) => setNewArticle(event.target.value)} />
-            <button className='btn btn-primary'>Aggiungi</button>
+          <form className="d-flex align-items-center gap-2" onSubmit={addNewPost}>
+            <input type="text" className='form-control' id="inputNewPost" value={newPost} onChange={(event) => setnewPost(event.target.value)} />
+            <div id="inputNewPost" className="form-text">titolo da aggiungere alla lista</div>
+            <button type='submit' className='btn btn-primary'>Aggiungi</button>
           </form>
         </div>
         {/* Sezione LIsta Articoli */}
@@ -23,8 +36,8 @@ function App() {
           <h2>Elenco Articoli:</h2>
           <ul className="list-group">
             {
-              blogPosts.map((curBlog) => (
-                <li key={curBlog.id} className="list-group-item">{curBlog.titolo}</li>
+              blogPosts.map((curPost) => (
+                <li key={curPost.id} className="list-group-item">{curPost.titolo}</li>
               ))
             }
 
