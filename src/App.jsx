@@ -19,10 +19,16 @@ function App() {
     setBlogPosts((prev) => [...prev, newPostToAdd]);
   }
 
+  function deletePost(idToDelete) {
+    console.log("Cancella: ", idToDelete);
+  }
+
   return (
     <>
       <h1>React Form</h1>
+
       <div className="container">
+        {/* Sezione Input nuovo articolo */}
         <div className='mt-5'>
           <h2>Inserisci un nuovo articolo</h2>
           <form className="d-flex align-items-center gap-2" onSubmit={addNewPost}>
@@ -37,7 +43,10 @@ function App() {
           <ul className="list-group">
             {
               blogPosts.map((curPost) => (
-                <li key={curPost.id} className="list-group-item">{curPost.titolo}</li>
+                <li key={curPost.id} className="list-group-item d-flex justify-content-between">
+                  <span>{curPost.titolo}</span>
+                  <button onClick={() => deletePost(curPost.id)} className='btn btn-outline-danger'>Cancella</button>
+                </li>
               ))
             }
 
