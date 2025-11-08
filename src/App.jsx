@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import initialBlogPosts from './assets/listOfPost'
+import ListItem from './assets/components/ListItem';
 
 function App() {
   const [blogPosts, setBlogPosts] = useState(initialBlogPosts);
@@ -47,10 +48,8 @@ function App() {
           <ul className="list-group">
             {
               blogPosts.map((curPost) => (
-                <li key={curPost.id} className="list-group-item d-flex justify-content-between">
-                  <span>{curPost.titolo}</span>
-                  <button onClick={() => deletePost(curPost.id)} className='btn btn-outline-danger'>Cancella</button>
-                </li>
+                <ListItem key={curPost.id} curPost={curPost} handleDelete={deletePost} />
+
               ))
             }
 
